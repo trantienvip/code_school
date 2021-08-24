@@ -1,0 +1,101 @@
+.contentAll-c{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+}
+.top-c{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.top-c h4{
+    text-align: center;
+}
+#chonlop{
+    width: 145px;
+    height: 37px;
+}
+.main-c{
+    display: flex;
+    justify-content: space-around;
+    grid-column-gap: 2rem;
+    width: 100%;
+    padding: 2rem;
+}
+#logo_tt{
+    width: 100px;
+}
+.chon-cac-de{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 20px 20px 20px;
+    background: #ececec;
+    grid-row-gap: 25px;
+    min-width: 470px;
+    max-width: 480px;
+    border-radius: 3px;
+}
+.chon-cac-de.p2{
+    text-align: center;
+    display: flex;
+}
+.chon-cac-de.p2 ul{
+    display: flex;
+    justify-content: space-around;
+}
+.chon-cac-de.p2 ul li:first-child{
+    width: 40%;
+    text-align: left;
+}
+.thongtintrungtam{
+    align-items: center;
+    height: 100%;
+    display: flex;
+    grid-row-gap: 1rem;
+    flex-direction: column;
+    justify-content: center;
+}
+.thongtintrungtam h4{
+    color: red;
+}
+.chon-cac-de ul{
+    list-style: none;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.chon-cac-de.p1 ul li{
+    background: #fff;
+    height: 43px;
+    align-items: center;
+    display: flex;
+    margin-bottom: 3px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font-size: 14px;
+}
+#btn-chonlop{
+    width: 145px;
+    height: 37px;
+    background: #007AFF;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.bottom-c {
+    background: #ECECEC;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    margin: 0 2rem;
+}
+#chuong{
+    max-height: 275px;
+    overflow-y: scroll;
+    /* max-width: 469px; */
+}

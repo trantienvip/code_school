@@ -1,0 +1,234 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.header{
+    display: flex;
+    flex-direction: column;
+}
+.header .top{
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .8em;
+    padding: 0 1em;
+    margin-top: 0;
+    line-height: 4rem;
+    height: 4rem;
+    color: #424242;
+    border-top: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    grid-column-gap: 1rem;
+}
+.header .top button{
+    color: #000;
+    padding: 0 1.5rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+.logo{
+    max-width: 50px;
+}
+.header .bottom{
+    text-align: center;
+    width: 100%;
+    max-width: 1366px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    height: 80vh;
+}
+@font-face {
+    font-family: fontto;
+    src: url(../asset/Roboto-Bold.woff2);
+}
+.header .bottom-c:first-child{
+    display: inline-block;
+    text-align: left;
+    order: 2;
+    padding-left: 10%;
+    display: flex;
+    flex-direction: column;
+}  
+.header .bottom-c:last-child img{
+    min-width: 683px;
+}
+.t1{
+    color: #26ba99;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: .5rem;
+    font-weight: 700;
+    margin: .5rem 0;
+    font-family: fontto;
+}
+.t2{
+    color: #000;
+    font-size: 1.5rem;
+    letter-spacing: .5rem;
+    margin-bottom: 2rem;
+}
+.t3{
+    color: #000;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+.main .title{
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1.5;
+    margin: 0 auto;
+    text-transform: uppercase;
+}    
+.line{
+    width: 3rem;
+    height: .5rem;
+    background-color: #26ba99;
+    margin: 1rem auto;
+}
+.main{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    padding: 10px 50px;
+}
+.main .bai img{
+    width: 90%;
+}
+.title-big{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#lambai{
+    cursor: pointer;
+    padding: 1rem 3rem;
+    background-image: linear-gradient(
+-30deg
+,#42e695,#3bb2b8);
+    border-radius: 3rem;
+    border: none;
+    color: #fff;
+    box-shadow: 5px 5px 20px 0 rgb(0 0 0 / 20%);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: .8rem;
+    white-space: nowrap;
+    max-width: 200px;
+}
+.bai {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+.footer{
+    border-color: #26ba99 transparent transparent transparent;
+    border-width: 2px;
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8e8e8;
+    padding: 20px;
+    font-family: fontto;
+    border-top-style: dashed;
+}
+.check-tn{
+    display: flex;
+    grid-column-gap: 1rem;
+    width: 100%;
+    justify-content: space-around;
+    padding: 0 9rem;
+    margin-bottom: 20px;
+}
+.form-check-tn{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    grid-column-gap: 3px;
+}
+.check-tn input{
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+.check-tl{
+    width: 100%;
+    padding: 0 15rem;
+    display: flex;
+}
+.check-tl input{
+    padding: 20px;
+    width: 100%;
+    margin: 10px 0;
+}
+button#upfile {
+    margin: 10px 0;
+    background: #3ec2ae;
+    border: navajowhite;
+    color: #fff;
+    border-radius: 3px;
+    margin-left: 3px;
+    padding: 3px;
+}
+
+@media (max-width: 739.9px) {
+    .header .bottom-c:last-child img {
+        min-width: 100%;
+    }
+    .header .bottom {
+    flex-direction: column-reverse;
+    }
+    .header .bottom-c:first-child {
+    order: 2;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-left: 0;
+    margin-top: 1rem;
+    }
+    .main .title {
+    text-align: center;
+    }
+    .main{
+        padding: 0;
+    }
+    .check-tn {
+        padding: 0 2rem;
+    }
+    .check-tn input {
+        height: 15px;
+        width: 15px;
+    }
+    .form-check-tn {
+        font-size: 9px;
+    }
+    .check-tl {
+        width: 100%;
+        padding: 0 55px;
+        display: flex;
+    }
+    .check-tl input {
+        padding: 6px;
+        width: 100%;
+        margin: 10px 0;
+    }
+    .main .bai img {
+        width: 100%;
+    }
+}
