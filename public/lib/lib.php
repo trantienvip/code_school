@@ -1,4 +1,37 @@
 <?php 
+$conn1 = connect_db();
+
+
+?>
+<script type="text/JavaScript">
+  function get_value() {
+    var x = document.getElementById("chonlop").value;
+    return x;
+  }
+
+    function getBoxCD(e){
+        var divID = e;
+        jQuery('#id').hide();
+    }
+    function AddInputs() {
+            var total = 0;
+            var coll = document.getElementsByClassName("sum")
+            for (var i = 0; i < coll.length; i++) {
+                var ele = coll[i];
+                total += parseInt(ele.value);
+            }
+            $("#number_ch").val(total);
+        }
+    function showcd(cd){
+            jQuery('.chuong').hide();
+            var chuongcon = document.querySelectorAll('.chuong.'.concat(cd));
+            chuongcon.forEach(e => {
+                e.style.display = 'flex';
+            });
+        };
+
+  </script>
+<?php
     function connect_db(){
         $connect = new mysqli('localhost', 'root', '', 'data_school');
         if ($connect->connect_error) {
@@ -313,9 +346,26 @@
     
 
     // kiem tra
+    function chuyende($class){
+        $conn = connect_db();
+        if(isset($_POST["chonlop"])){
+            $class=$_POST["chonlop"];
+        }
+        $result = mysqli_query($conn,"SELECT * FROM chuyende WHERE class = $class");
+        while($row = $result->fetch_assoc()){
+            echo' <button class="btn btn-link btn-block text-left collapsed btn-cd" onclick =showcd("'.$row['machuyende'].'") id="'.$row['machuyende'].'" type="button">
+            '.$row['name'].'
+
+            </button>';
+        }
+    }
+
     function chuong(){
         $conn = connect_db();
-        $result = mysqli_query($conn,"SELECT * FROM chuong ORDER BY id DESC");
+        if(isset($_POST["chonlop"])){
+            $class=$_POST["chonlop"];
+        }
+        $result = mysqli_query($conn,"SELECT * FROM chuyende WHERE class=$class");
         while($row = $result->fetch_assoc()){
             echo '<li><a class="none_a" href="#">'.$row['name'].'</a></li>';
         }
@@ -351,30 +401,51 @@
                 </div>
                 <div class="contentAll-c">
                     <div class="top-c">
-                        <select name="" id="chonlop">
-                            <option value="">Chọn lớp</option>
-                            <option value="">Lớp 10</option>
-                            <option value="">Lớp 11</option>
-                            <option value="">Lớp 12</option>
+                    <form method="POST" action="">
+                        <select name="chonlop" id="chonlop" onchange= "this.form.submit()">
+                            <option disabled selected value="">Chọn lớp</option>
+                            ';for($i = 12;$i >= 1;$i--){
+                                echo'<option value="'.$i.'">Lớp '.$i.' </option>';  
+                            }
+                            echo'
                         </select>
+                    </form>
                         <h4>Vào để tạo lớp quản lý học sinh <br> Tạo đề kiểm tra cho lớp</h4>
                     </div>
                     <div class="main-c">
                         <div class="chon-cac-de p1">
                             <h4>Chọn các chuyên đề cho đề thi</h4>
-                            <ul id="chuong">';
-                            chuong();
-                            echo '</ul>
+                            <ul id="chuyende">';
+                            $class=12;
+                            if(isset($_POST["chonlop"])){
+                                $class=$_POST["chonlop"];
+                                chuyende($class);
+                            }else{
+                                chuyende($class);   
+                            }
+                            echo '<script>var x = document.getElementById("chonlop").value='.$class.';</script> </ul> 
                         </div>
 
                         <div class="chon-cac-de p2">
                             <h4>Chọn mức độ khó trong đề</h4>
-                            <ul>
+                            <nav class="tieudenav">
                                 <li>Tên chương</li>
                                 <li>Giỏi</li>
                                 <li>Khá</li>
                                 <li>TB</li>
-                            </ul>
+                            </nav>';
+                            $conn = connect_db();
+                            $chuong = mysqli_query($conn, "SELECT * FROM chuong");
+                            while($row = $chuong->fetch_assoc()){
+                                echo '<ul class="chuong '.$row['id_chuyende'].'">
+                                <li>'.$row['name'].'</li>
+                                <li><input onclick="this.select()" name="';echo $row['id_chuyende'] . '-' . $row['thumuc'] . '-GIOI-" class="form-control sum" type="number" min="0" max="1000" value="0" placeholder="Nhập số lượng câu hỏi"/></li>
+                                <li><input onclick="this.select()" name="';echo $row['id_chuyende'] . '-' . $row['thumuc'] . '-KHA-" class="form-control sum" type="number" min="0" max="1000" value="0" placeholder="Nhập số lượng câu hỏi"/></li>
+                                <li><input onclick="this.select()" name="';echo $row['id_chuyende'] . '-' . $row['thumuc'] . '-TB-" class="form-control sum" type="number" min="0" max="1000" value="0" placeholder="Nhập số lượng câu hỏi"/></li>
+
+                            </ul>';
+                            }
+                            echo'
                             <div class="thongtintrungtam">
                                 <img id="logo_tt" src="https://upload.wikimedia.org/wikipedia/vi/archive/d/dc/20200125140746%21Vinfast-logo.png" alt="">
                                 <h3>Trung tâm đào tạo ABC</h3>
@@ -382,8 +453,25 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="bottom-c">
-                        <button id="btn-chonlop">Tạo đề thi</button>
+                            <div class="ui_bt">
+                                <div class="col-md-6">
+                                <div class="checkbox">
+                                    <label> <input name="ans" type="checkbox"> Có lời giải </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <span id="Display"></span>
+                                <div class="checkbox">
+                                    <label> <input id="number_ch" disabled="" value="0" name="number" type="text">
+                                        Tổng số câu trong đề thi </label>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="ui_bt">
+                                <button id="btn-chonlop">Tạo đề thi</button>
+                            </div>
                     </div>
                 </div>
             </div>';
