@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <?php require('lib/lib.php'); session_start() ?>
+    <?php require('lib/lib.php'); session_start(); ob_start() ?>
 
 <head>
     <meta charset="UTF-8">
@@ -54,12 +54,18 @@
                                     <th scope="col">Nơi ở</th>
                                     <th class="andi" scope="col">Điểm</th>
                                     <th class="andi" scope="col">Ghi chú</th>
-                                    <!-- <th scope="col">Chức năng</th> -->
+                                    <th scope="col" id="hs-an">Chức năng</th>
                                   </tr>
                                 </thead>
                                 <tbody>';
                         danhsach($email);
                   }else{ header('location: login.php');} ?>
+                  <?php if(isset($_GET['xoa'])){
+                      $conn = connect_db();
+                      $iduser = $_GET['xoa'];
+                      $result = mysqli_query($conn, "UPDATE user SET lop = 1 WHERE id = $iduser");
+                      header('location: danhsachhs.php');
+                  } ?>
                 </tbody>
               </table>
         </div>

@@ -13,6 +13,9 @@ require ('../lib/get_post.php');
     <link rel="stylesheet" href="asset/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../asset/css/style-gv.css">
     <style>
+        .container{
+            height: 100%;
+        }
         .not_login{
             display: flex;
             justify-content: center;
@@ -91,6 +94,59 @@ require ('../lib/get_post.php');
             border: 1px #dedede solid;
             font-size: 14px;
             padding: 5px 5px;
+        }
+        #chuy{
+            color: red;
+            font-size: 16px;
+            font-style: italic;
+            font-weight: bold;
+        }
+        button#btn-chonlop.btn-danger {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        button.btn-hd {
+            width: 145px;
+            height: 37px;
+            background: #007AFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button.btn-hd a{
+            color: #fff;
+            text-decoration: none;
+        }
+        .chon-ty-le{
+            display: flex;
+        }
+        .chon-ty-le p{
+            margin-bottom: 0.5rem;
+            font-size: 12px;
+        }
+        #chuy{
+            font-size: 13px;
+        }
+        #btn-chonlop.btn-success{
+            display: none;
+            background: #28a745;
+            width: 100%;
+        }
+        #btn-chonlop.taodethi{
+            width: 100%;
+        }
+        .taodethi_taixuong{
+            width: 100%;
+        }
+        .taodethi_taixuong label{
+            width: 50%;
+        }
+        .taodethi_taixuong label:last-child{
+            display: flex;
+            grid-column-gap: 1rem;
+            
         }
     </style>
 </head>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php require('lib/lib.php'); session_start() ?>
+<?php require('lib/lib.php'); session_start(); ob_start() ?>
 
 <head>
     <meta charset="UTF-8">

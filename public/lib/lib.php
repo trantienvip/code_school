@@ -30,6 +30,15 @@ $conn1 = connect_db();
             });
         };
 
+        function clearall(){
+            var elements = document.getElementsByClassName("form-control sum");
+            for (var ii=0; ii < elements.length; ii++) {
+                if (elements[ii].type == "number") {
+                elements[ii].value = 0;
+                }
+            }
+        };
+
   </script>
 <?php
     function connect_db(){
@@ -141,7 +150,7 @@ $conn1 = connect_db();
                     <h3 class="tenlop btn">Lớp 12A <i class="ti-close dongnav"></i></h3>
                     <div class="avatar"><img width="100%" src="https://i.ibb.co/SKPC0Hk/image.png" alt="avatar"></div>
                     <p class="btn">'; $email = $_SESSION['taikhoan']; username($email); echo' <a id="thoat" href="./?logout">Đăng xuất</a></p>
-                    <p class="btn">Giáo viên</p>
+                    <p class="btn">'; $id_hs_email = $_SESSION['taikhoan']; tengiaovien($id_hs_email); echo '</p>
                     <p class="btn">Nhóm Zalo</p>
                     <p class="btn">Link gửi bạn bè</p>
                     <a href="danhsachhs.php" class="btn none_a">Danh sách học sinh</a>
@@ -282,7 +291,7 @@ $conn1 = connect_db();
 
     function danhsach($email){
         $conn = connect_db();
-        $result = mysqli_query($conn, "SELECT * FROM user u INNER JOIN gioitinh g ON g.id_gt = u.gioitinh AND u.isAdmin != 1 ORDER BY id ASC");
+        $result = mysqli_query($conn, "SELECT * FROM user u INNER JOIN gioitinh g ON g.id_gt = u.gioitinh AND u.isAdmin != 1 AND lop  = 13 ORDER BY id ASC");
         $result2 = mysqli_query($conn,"SELECT * FROM user WHERE email = '$email' and isAdmin = 1");
         $result3 = mysqli_query($conn, "SELECT * FROM user u INNER JOIN bangdiem b INNER JOIN gioitinh g ON u.id = b.idhs AND g.id_gt = u.gioitinh");
         if ($result2->num_rows>0) {
@@ -302,7 +311,9 @@ $conn1 = connect_db();
                     //     echo '<td>'.round(($row['sdiem']), 1).'</td>';
                     // }
 
-                    echo '<td>'.$row['ghichu'].'</td>';
+                    echo '<td>'.$row['ghichu'].'</td>
+                    <td><a style="color: red;" href="danhsachhs.php?xoa='.$row['id'].'">Xóa</a></td>
+                    ';
                     // <td><button class="btn btn-success">Sửa </button></td>
                 echo'</tr>';
             }
@@ -313,6 +324,7 @@ $conn1 = connect_db();
                     andi.forEach(e => {
                         e.style.display = "none";
                     });
+                    document.querySelector("#hs-an").style.display="none";
                     </script>';
                 echo '<tr>
                     <td>'.$stt++.'</td>
@@ -386,7 +398,7 @@ $conn1 = connect_db();
                     <p class="btn">Chọn người hỗ trợ</p>
                     <p class="btn">Tạo nhóm Zalo</p>
                     <p class="btn">Share link admin</p>
-                    <a href="danhsachhs.php" class="btn none_a">Danh sách học sinh</a>
+                    <a href="../danhsachhs.php" class="btn none_a">Danh sách học sinh</a>
                     <div class="tonghs">
                         <p>Tổng học sinh: </p>
                         <p>'; calc_hs(); echo'</p>
@@ -468,9 +480,27 @@ $conn1 = connect_db();
                                         Tổng số câu trong đề thi </label>
                                 </div>
                             </div>
+                            </div>'; if (intval($class) <12) {
+                                echo '<div class="ui_bt chon-tyle">
+                                <label>
+                                Chọn tỷ lệ câu trắc nghiệm và tự luận trong đề thi </label>
+                                <div class="chon-ty-le"><div class="checkbox"><label><input class="max100" name="tn" id="tn" value="100" onchange="changeNumber1(this.value)"> % </label> <p>Trắc nghiệm</b></div>
+                                <div class="checkbox"><label><input class="max100" name="tn" id="tn" value="0" onchange="changeNumber1(this.value)"> % </label><p>Tự luận</b></div></div>
+                                </div>';
+                            }
+                            echo '
+                            <div class="ui_bt taodethi_taixuong">
+                            <label> <input id="number_ch" value="0" name="number" type="text">
+                            Chọn số đề thi khác nhau </label>
+                            <label for=""><button id="btn-chonlop" class="taodethi">Tạo đề thi</button>
+                            <button id="btn-chonlop" class="btn-success">Tải xuống</button></label>
                             </div>
                             <div class="ui_bt">
-                                <button id="btn-chonlop">Tạo đề thi</button>
+                            <span id="chuy">Chú ý: Các phần không có TN thì <br>
+                            các câu trắc nghiệm tự động đổi thành TL</span>
+                            <label> 
+                                <button id="btn-chonlop" onclick="clearall()" class="btn-danger">Xóa lựa chọn</button>
+                                <button class="btn-hd"><a href="https://docs.google.com/document/d/1TZFlGegjwd9q1fq959rVzlCSo6L4GHJWtUarDuhIeZ4/edit?usp=sharing" target="_blank">Hướng dẫn sử dụng</a></button>
                             </div>
                     </div>
                 </div>
@@ -486,7 +516,7 @@ $conn1 = connect_db();
                     <p class="btn">Giáo viên</p>
                     <p class="btn">Nhóm Zalo</p>
                     <p class="btn">Link gửi bạn bè</p>
-                    <a href="danhsachhs.php" class="btn none_a">Danh sách học sinh</a>
+                    <a href="../danhsachhs.php" class="btn none_a">Danh sách học sinh</a>
                     <div class="tonghs">
                         <p>Tổng học sinh: </p>
                         <p>'; calc_hs(); echo'</p>
@@ -494,7 +524,7 @@ $conn1 = connect_db();
                     <a href="lichhoc.php" class="btn none_a">Lịch học</a>
                     <p class="btn">Nhận bài tập</p>
                     <p class="btn">Nộp bài tập</p>
-                    <a href="bangdiem.php" class="btn none_a">Bảng điểm</a>
+                    <a href="../bangdiem.php" class="btn none_a">Bảng điểm</a>
                 </div>
                 <div class="contentAll">
                     <div class="top-content">
@@ -534,6 +564,14 @@ $conn1 = connect_db();
             }
         }else{
             echo 'bạn không có quyền truy cập trang này';
+        }
+    }
+
+    function tengiaovien($id_hs_email){
+        $conn = connect_db();
+        $result = mysqli_query($conn, "SELECT * FROM user u INNER JOIN dslop ds ON u.lop = ds.idlop AND ds.admin_lop = 28");
+        while($row = $result->fetch_assoc()){
+            echo $row['hoten'];
         }
     }
 
